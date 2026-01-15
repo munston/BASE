@@ -1,0 +1,58 @@
+QUICKSTART - How to Use BASE with Claude
+=========================================
+
+This system lets you have persistent Haskell coding sessions with Claude.
+Just tell Claude what you want in plain English.
+
+COMMANDS
+--------
+
+1. CREATE A NEW PROJECT
+   Say: "create a project called <name>"
+   Example: "create a project called calculator"
+
+   Claude will:
+   - Set up a new Haskell project from the template
+   - Build and verify it works
+   - Record a session transcript
+
+2. CONTINUE WORKING
+   Say: "continue"
+
+   Claude will:
+   - Find your latest project
+   - Copy it to a new version
+   - Run tests and show current state
+   - You can then keep coding
+
+3. COMPRESS / CLEAN UP
+   Say: "compress"
+
+   Claude will:
+   - Back up everything to versions/
+   - Remove redundant files
+   - Verify the template still works
+   - Create a test project to confirm functionality
+
+TIPS
+----
+- All session transcripts are saved in session.txt files
+- Backups are immutable in versions/ - never lost
+- The template in claude_project_1 is your starting point
+- Each project gets .bat files for easy running
+
+EXAMPLE SESSION
+---------------
+You: "create a project called hello"
+Claude: *creates project, builds it, shows output*
+
+You: "add a function that prints the fibonacci sequence"
+Claude: *edits the Haskell code*
+
+You: "continue"
+Claude: *creates new version, ready to keep working*
+
+You: "compress"
+Claude: *cleans up, backs up, verifies everything*
+
+That's it! Just describe what you want and Claude handles the rest.

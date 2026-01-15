@@ -1,0 +1,66 @@
+BASE - PERSISTENT CLAUDE DEVELOPMENT ENVIRONMENT
+=================================================
+
+OVERVIEW
+--------
+System for persistent Claude coding sessions using Haskell projects.
+Each claude_project_N represents a session that can be saved/resumed.
+
+THREE OPERATIONS
+----------------
+
+1. CREATE NEW PROJECT
+   Trigger: User provides project name
+   Steps:
+   - Find latest claude_project_N
+   - Create claude_project_N+1/claude_sessions/1/<name>/
+   - Copy structure from claude_project_1/template/, replace "template" with <name>
+   - Build: cabal v2-run <name>
+   - Verify: <name>.out contains "<name> loaded"
+   - Write session.txt (verbatim transcript)
+
+2. CONTINUE PROJECT
+   Trigger: User says continue
+   Steps:
+   - Find latest claude_project_N
+   - Create claude_project_N+1, copy contents
+   - Run tests, report state
+
+3. COMPRESS
+   Trigger: User says compress
+   Steps:
+   - Backup BASE to versions/version-N+1 (exclude versions/, saves/)
+   - Remove redundant files (historical docs, excess projects)
+   - Verify template builds
+   - Verify create workflow (make test project)
+   - Check diff for fixed point
+
+PROJECT STRUCTURE
+-----------------
+claude_project_N/
+  claude_sessions/
+    notes_for_claude.txt    <- points to previous project
+    1/
+      session.txt           <- VERBATIM chat transcript
+      <project>/
+        <name>.bat          <- 3 lines: cabal v2-repl <name>, pause, <name>
+        claude_<name>.bat   <- 1 line: cabal v2-run <name>
+        cabal.project       <- packages: src/<name>
+        src/<name>/
+          <name>.cabal      <- library + executable sections
+          src/
+            <Name>.hs       <- module, exports main, writes to .out
+            Main.hs         <- imports module, calls main
+
+RULES
+-----
+- Session logs are VERBATIM transcripts, never summaries
+- Bat files: 3 lines (repl, pause, name) for human, 1 line (run) for Claude
+- Main writes to <name>.out for verification
+- Never edit files in versions/ (immutable backups)
+- Compression verification requires creating a test project
+
+KNOWN BUGS
+----------
+1. GHC warning about missing other-modules - cosmetic, ignore
+2. Locked directories during compression - remove dist-newstyle first or skip

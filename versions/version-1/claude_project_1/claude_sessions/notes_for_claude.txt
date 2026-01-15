@@ -1,0 +1,1 @@
+(1.) This is the template project. Folder 1/template contains a complete Haskell project with library, executable, and both interactive and Claude bat files. Use this as the reference for creating new projects via create_claude_project.txt.

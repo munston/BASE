@@ -1,0 +1,3 @@
+Previous project: claude_project_1
+This is a compressed version created for verification.
+Contains a surprise test project demonstrating the create workflow.
